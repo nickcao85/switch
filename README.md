@@ -4,10 +4,10 @@
 
 # 工具介绍
 ## 用法有三种如下
-1. 监控关键字触发方法
-key1 or key2 or ... 触发 method1
-key1 or key3 or ... 触发 method2
-比如key1变化，能触发 method1、method2，不重复触发
+1. 监控关键字触发方法  
+ key1 or key2 or ... 触发 method1  
+ key1 or key3 or ... 触发 method2  
+ 比如在一次变更中key1、key2，key3都发生变化，但method1、method2都仅触发执行一次（内部做了标记，在一次diamond变更过程中，不重复触发不同的method）
 
 2. Annotation自动更新Field
 例如下面使用，可以在开关变更时，直接更改field属性的值
