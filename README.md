@@ -1,19 +1,21 @@
-#背景
+# 背景
+
 在开发过程中，经常需要用到开关，对一个功能做到动态启停，传统的做法是在Diamond上配置一个dataid和groupid，在代码中注册订阅，接收diamond的推送后，在listener中转化文本到对象，再修改目标属性的值，这一套流程还是有一定开发和测试成本的，如何透明化这个过程，正是本文所阐述的。
 
-#工具介绍
-##用法有三种如下
-1.监控关键字触发方法
+# 工具介绍
+## 用法有三种如下
+1. 监控关键字触发方法
 key1 or key2 or ... 触发 method1
 key1 or key3 or ... 触发 method2
 比如key1变化，能触发 method1、method2，不重复触发
 
-2.Annotation自动更新Field
+2. Annotation自动更新Field
 例如下面使用，可以在开关变更时，直接更改field属性的值
+```
 @AdSwitch
 private volatile String sss;
-
-3.最基本的触发机制
+```
+3. 最基本的触发机制
 如下代码，前面config是变量全集，diffConfig是本次变更的变量
    public void reload(Map<String, String> config, Map<String, DiffValue> diffConfig) {
         System.out.println("config:"+config);
@@ -49,10 +51,8 @@ public class MergeAndEmitPipeline extends AbstractPipeline {
 </bean>
 ```
 
-
-
 # 4种使用方式的demo
-4.1.annotation使用方式
+4.1. annotation使用方式
 ```
 public class AnnotationSwitchDemo {
 
@@ -107,7 +107,7 @@ public class AnnotationSwitchDemo {
     }
 }
 ```
-4.2.key触发method的使用方式
+4.2. key触发method的使用方式
 ```
 public class DynamicKVKeyDemo {
     public static final String DATA_ID = "key-callback";
@@ -150,7 +150,7 @@ public class DynamicKVKeyDemo {
 }
 
 ```
-4.3.最原始的获取变更key的使用方式
+4.3. 最原始的获取变更key的使用方式
 ```
 public class DynamicKVConfigDemo implements IDynamicKvConfig {
     public static final String DATA_ID = "caoning.dataid";
@@ -178,7 +178,7 @@ public class DynamicKVConfigDemo implements IDynamicKvConfig {
     }
 }
 ```
-4.4.静态拉取配置的方式
+4.4. 静态拉取配置的方式
 ```
 public class StaticKVDemo {
     static final String DATA_ID = "caoning.dataid";
@@ -194,9 +194,9 @@ public class StaticKVDemo {
 
 
 
-#与阿里集团中间件Switch的对比
-##Switch与AppName绑定，满足大多数场景但分组部署方案不太方面
+# 与阿里集团中间件Switch的对比
+1. Switch与AppName绑定，满足大多数场景但分组部署方案不太方面
 有的项目可能存在一个AppName主备部署、HSF分组部署等，基于Switch不太好做，本方案可以和HSF分组配置、或者主备集群配置、放入相应Diamond的dataid配置即可满足不同分组使用不同开关的方案
 以我们项目举例，主集群的dataid是engine-0，备用集群的dataid是engine-1，主备开关互不影响
-##本文方案可以一次性装载所有开关，开关可当配置使用
-##本文方案可以获取变更前的old value，也可以基于Diamond拿到一定时间内的变更记录
+2. 本文方案可以一次性装载所有开关，开关可当配置使用
+3. 本文方案可以获取变更前的old value，也可以基于Diamond拿到一定时间内的变更记录
