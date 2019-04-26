@@ -37,7 +37,7 @@ public class MergeAndEmitPipeline extends AbstractPipeline {
     //***END*********************需要配置的参数***********************
 ```
 ```
-<bean class="com.taobao.ad.settle.preprocessor.pipeline.merge.MergeAndEmitPipeline">
+<bean class="com.nickcao.MergeAndEmitPipeline">
     <!--开关的设置,yaml配置文件默认值-->
     <property name="msForMerging" value = "${cpc.pv.MergeAndEmitPipeline.msForMerging}"/>
     <property name="mergeEnable" value = "${cpc.pv.MergeAndEmitPipeline.mergeEnable}"/>
