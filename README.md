@@ -17,10 +17,14 @@ private volatile String sss;
 ```
 3. 最基本的触发机制
 如下代码，前面config是变量全集，diffConfig是本次变更的变量
+
+```
    public void reload(Map<String, String> config, Map<String, DiffValue> diffConfig) {
         System.out.println("config:"+config);
         System.out.println("diff-config:"+diffConfig);
     }
+```    
+
 下面仔细讲一下第二种用法，如下面代码，在类中需要动态生效的属性上加一个annotation，然后在配置文件中，配置一下property即可，整个过程不需要开发一行代码，还能在diamond发生变更时，通过钉钉机器人通知到群组。
 
 ```
